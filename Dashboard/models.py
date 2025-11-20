@@ -16,6 +16,7 @@ class Medicine(models.Model):
     expiry_date = models.DateField()
     manufacturer = models.CharField(max_length=100, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    vpin = models.CharField(max_length=5, default="V1")
 
     def __str__(self):
         return self.name
@@ -129,3 +130,4 @@ class SystemStatus(models.Model):
 
     def __str__(self):
         return "System Status"
+
