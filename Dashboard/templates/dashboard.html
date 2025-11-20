@@ -341,22 +341,12 @@ main {
 </main>
 
 <script>
-const menuBtn = document.getElementById("menuBtn");
-const navMenu = document.querySelector("header nav");
-
-menuBtn.addEventListener("click", () => {
+        menuBtn.addEventListener("click", () => {
     navMenu.classList.toggle("active");
     menuBtn.classList.toggle("active");
-});
-
-// Close menu when clicking outside
-document.addEventListener("click", (e) => {
-    if (!menuBtn.contains(e.target) && !navMenu.contains(e.target)) {
-        navMenu.classList.remove("active");
-        menuBtn.classList.remove("active");
-    }
 });
 </script>
 
 </body>
 </html>
+
