@@ -996,78 +996,21 @@ BLYNK_URL = "https://blynk.cloud/external/api/update"
 def request_medicines(request):
     if request.method == "POST":
         selected_ids = request.POST.getlist('medicines')
+
         if not selected_ids:
             messages.warning(request, "Please select at least one medicine.")
             return redirect('medicines_list')
 
-        for index, med_id in enumerate(selected_ids):
+        for med_id in selected_ids:
             medicine = get_object_or_404(Medicine, id=med_id)
-            # Rotate stepper motors using V1, V2, V3… based on selection
-            vpin = f"V{index+1}"  # V1 for first, V2 for second
+
             try:
-                requests.get(f"{BLYNK_URL}?token={BLYNK_TOKEN}&{vpin}=1")
-                messages.success(request, f"{medicine.name} request sent to dispenser!")
-            except Exception as e:
-                messages.error(request, f"Failed to send {medicine.name}: {e}")
+                # SEND USING THE MEDICINE'S FIXED MOTOR PIN
+                requests.get(f"{BLYNK_URL}?token={BLYNK_TOKEN}&{medicine.vpin}=1")
+                messages.success(request, f"{medicine.name} request sent!")
+            except:
+                messages.error(request, f"Failed to send {medicine.name}")
 
         return redirect('medicines_list')
-    else:
-        return redirect('medicines_list')
-# from django.http import JsonResponse
-# from django.views.decorators.csrf import csrf_exempt
-# from django.contrib.auth.decorators import login_required
-# from django.shortcuts import redirect
-# from django.conf import settings
-# import face_recognition
-# import numpy as np
-# from PIL import Image
-# import io
 
-
-# @login_required
-# def request_medicine(request, med_slot):
-#     """Sends user_id to ESP32 via Blynk"""
-#     user_id = request.user.id
-#     if med_slot == 1:
-#         pin = "V1"
-#     elif med_slot == 2:
-#         pin = "V2"
-#     else:
-#         return redirect('medicine_list')
-
-#     blynk_url = f"https://blynk.cloud/external/api/update?token={BLYNK_AUTH}&{pin}={user_id}"
-#     try:
-#         requests.get(blynk_url)
-#         print(f"✅ Sent user_id={user_id} for medicine {med_slot}")
-#     except Exception as e:
-#         print(f"⚠️ Error sending user_id: {e}")
-
-#     return redirect('medicine_list')
-
-
-# @csrf_exempt
-# def verify_face(request):
-#     """Receives image from ESP32 and verifies the face"""
-#     if request.method == 'POST':
-#         user_id = request.POST.get("user_id")
-#         image_file = request.FILES.get("image")
-#         if not image_file:
-#             return JsonResponse({"verified": False, "error": "No image received"})
-
-#         # Load registered encoding for that user
-#         from .models import UserProfile
-#         user_profile = UserProfile.objects.get(user_id=user_id)
-#         known_encoding = np.load(user_profile.face_encoding_path)
-
-#         # Convert uploaded image to array
-#         img = face_recognition.load_image_file(image_file)
-#         face_locations = face_recognition.face_locations(img)
-#         if not face_locations:
-#             return JsonResponse({"verified": False, "error": "No face detected"})
-
-#         face_encoding = face_recognition.face_encodings(img, face_locations)[0]
-#         result = face_recognition.compare_faces([known_encoding], face_encoding)
-
-#         return JsonResponse({"verified": bool(result[0])})
-
-#     return JsonResponse({"error": "Invalid request"}, status=400)
+    return redirect('medicines_list')
