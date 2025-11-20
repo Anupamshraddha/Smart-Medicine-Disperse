@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-0!#e86(h$!j&2nf7b)x6-yc25&pl6n94$z@82r)l%vbq0na-0h
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'smart-medicine-disperse-production.up.railway.app',
     '127.0.0.1',
     'localhost',
     '10.203.115.40',   # your current LAN IP
@@ -141,3 +142,4 @@ LOGOUT_REDIRECT_URL = 'login'
 # settings.py
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
