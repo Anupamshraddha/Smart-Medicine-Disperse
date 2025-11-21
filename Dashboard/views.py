@@ -670,10 +670,11 @@ def request_medicines(request):
 
         if not selected_ids:
             messages.warning(request, "Please select at least one medicine.")
-            return redirect("medicines_list")
+            return redirect('medicines_list')
 
         for med_id in selected_ids:
-            medicine = Medicine.objects.get(id=med_id)
+            medicine = get_object_or_404(Medicine, id=med_id)
+
 
             # Reduce stock by 1
             if medicine.quantity > 0:
@@ -701,14 +702,16 @@ def request_medicines(request):
 
             # Call Blynk Dispense
             try:
-                requests.get(
-                    f"https://blynk.cloud/external/api/update?token={BLYNK_TOKEN}&V1={medicine.vpin}",
-                    timeout=3
-                )
+                # SEND USING THE MEDICINE'S FIXED MOTOR PIN
+                requests.get(f"{BLYNK_URL}?token={BLYNK_TOKEN}&{medicine.vpin}=1")
+                messages.success(request, f"{medicine.name} request sent!")
             except:
-                pass
+                messages.error(request, f"Failed to send {medicine.name}")
+
 
         messages.success(request, "Medicine request sent successfully!")
-        return redirect("dashboard")
 
-    return redirect("medicines_list")
+        return redirect('medicines_list')
+
+    return redirect('medicines_list')
+
