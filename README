@@ -1,0 +1,42 @@
+Open the Web Interface
+Go to 
+https://smart-medicine-disperse-production.up.railway.app/
+
+ — this is the web portal for your IoT medicine dispenser. 
+smart-medicine-disperse-production.up.railway.app
+
+Login / Sign Up
+
+If you already have a user account, click on “Login”, enter your credentials, and access the system. 
+smart-medicine-disperse-production.up.railway.app
+
+If not, use “Sign Up” to register (you might need a valid student ID or other identifier, based on the system flow).
+
+Request Medicine
+Once logged in, you can request medicines via the browser interface. Your request gets sent to the backend system. 
+smart-medicine-disperse-production.up.railway.app
+
+IoT Dispenser Activation
+After a valid request, the IoT dispenser (hardware) is triggered — it unlocks or dispenses the correct compartment for the requested medicine. 
+smart-medicine-disperse-production.up.railway.app
+
+Notifications & Alerts
+You’ll receive real-time alerts through the dashboard, for events like:
+
+Low stock of medicine
+
+Expiry of medicine
+
+Successful dispensing actions 
+smart-medicine-disperse-production.up.railway.app
+
+Transaction Logging
+Every action (requests, dispensing) is logged in the system. So administrators (or you) can see a full audit trail. 
+smart-medicine-disperse-production.up.railway.app
+
+Safety & Accountability
+Because the system is web-based and automated:
+Unauthorized access is harder
+Errors from manual dispensing are reduced
+
+There’s better control over who is requesting what, and when
